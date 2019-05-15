@@ -1,0 +1,20 @@
+https://stackoverflow.com/questions/15830421/xml-unicode-strings-with-encoding-declaration-are-not-supported
+lxml path:w
+
+with open('window_dump.xml') as f:
+    s = f.read()
+
+sen = s.encode('utf-8')
+parser=et.XMLParser(ns_clean=True, recover=True, encoding='utf-8') 
+doc = et.fromstring(sen,parser=parser)
+
+tre =et.parse('window_dump.xml', parser=parser)
+
+bounds [1014 will be a button for click (>) this 
+for main menu :
+
+last four focusable-"true"
+
+adb shell uiautomator dump
+
+adb exec-out screenrecord --bit-rate=16m --output-format=h264 - | mplayer -framedrop -fps 6000 -cache 512 -demuxer h264es -

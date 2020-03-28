@@ -1,0 +1,13 @@
+# /usr/lib/systemd/system/myusbgadget.service
+ 
+[Unit]
+Description=My USB gadget
+After=systemd-modules-load.service
+ 
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/myusbgadget
+ 
+[Install]
+WantedBy=sysinit.target

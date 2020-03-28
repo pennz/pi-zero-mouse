@@ -3,13 +3,6 @@ from numpy.random import normal
 import time
 import math
 
-def _clip(v,min_v, max_v):
-    if v > max_v:
-        return max_v
-    if v < min_v:
-        return min_v
-    return v
-
 class operator():
     def __init__(self, g_n='/dev/hidg0'):
         self.gadget_name = g_n
@@ -33,6 +26,14 @@ class operator():
         self._debug_pause = 30/1000
         self._init_pause  = 200/1000
         self._pointer_pos_init()
+
+    @staticmethod
+    def _clip(v,min_v, max_v):
+        if v > max_v:
+            return max_v
+        if v < min_v:
+            return min_v
+        return v
 
 
     def _pasue_time_table_init(self):
@@ -65,8 +66,8 @@ class operator():
             x += self.x_pos
             y += self.y_pos
 
-        self.x_pos = _clip(x,0,self.screen_x_len)
-        self.y_pos = _clip(y,0,self.screen_y_len)
+        self.x_pos = self._clip(x,0,self.screen_x_len)
+        self.y_pos = self._clip(y,0,self.screen_y_len)
 
     def _to_b_r(self, pause_time):
         for _ in range(19):
@@ -113,8 +114,8 @@ class operator():
         #bytes_3.append(button_report.to_bytes(1,'big',signed=False))
         bytes_3.append(self.button_state)
 
-        x_report = _clip(x, self.x_min, self.x_max)
-        y_report = _clip(y, self.y_min, self.y_max)
+        x_report = self._clip(x, self.x_min, self.x_max)
+        y_report = self._clip(y, self.y_min, self.y_max)
         bytes_3.append(x_report.to_bytes(1,'big',signed=True)[0])
         bytes_3.append(y_report.to_bytes(1,'big',signed=True)[0])
 
@@ -164,7 +165,7 @@ class operator():
 
         l_pause = len(self._pause_time_table)
         num_data_points = int(30 * mid_distance*2/700)
-        num_data_points = _clip(num_data_points,0, l_pause+1) # trace will minus 1
+        num_data_points = self._clip(num_data_points,0, l_pause+1) # trace will minus 1
 
         trace = beizier_curve_quad(orig_x,orig_y,bezier_mid_x, bezier_mid_y,
                x, y, n=num_data_points)
@@ -175,7 +176,7 @@ class operator():
 
         if pause:
             pause_counts = 20
-            pause_counts = _clip(pause_counts,0, num_data_points)
+            pause_counts = self._clip(pause_counts,0, num_data_points)
 
             #step_length_for_pause = num_data_points // pause_counts # clipped
 
@@ -220,8 +221,8 @@ class operator():
         return math.sqrt(x*x+y*y)/200 * 150 # ms, for 200 pixels
 
     def _clip_in_screen(self, c):
-        return (_clip(c[0], 0, self.screen_x_len),
-                _clip(c[1], 0, self.screen_y_len))
+        return (self._clip(c[0], 0, self.screen_x_len),
+                self._clip(c[1], 0, self.screen_y_len))
 
 def beizier_curve_quad(orig_x,orig_y,bezier_mid_x, bezier_mid_y, target_x, target_y, n=100):
     #np.array

@@ -3,19 +3,21 @@ modprobe libcomposite
 
 C="1"
 N="usb0"
- 
+
 cd /sys/kernel/config/usb_gadget/ && mkdir g1 && cd g1
- 
+
 echo 0x1d6b > idVendor  # Linux Foundation
 echo 0x0104 > idProduct # Multifunction Composite Gadget
 echo 0x0100 > bcdDevice # v1.0.0
 echo 0x0200 > bcdUSB    # USB 2.0
- 
+
 mkdir -p strings/0x409
 echo "deadbeef00115599" > strings/0x409/serialnumber
 echo "irq5 labs"        > strings/0x409/manufacturer
 echo "Pi Zero Gadget"   > strings/0x409/product
- 
+
+mkdir -p configs/c.$C
+
 mkdir -p functions/acm.$N    # serial
 ln -s functions/acm.$N   configs/c.$C/
 
@@ -24,11 +26,11 @@ mkdir -p ${g}/os_desc  # for picky Windows
 echo 1       > ${g}/os_desc/use
 echo 0xcd    > ${g}/os_desc/b_vendor_code
 echo MSFT100 > ${g}/os_desc/qw_sign
- 
+
 mkdir -p ${g}/functions/rndis.$N  # network
 echo RNDIS   > ${g}/functions/rndis.usb0/os_desc/interface.rndis/compatible_id
 echo 5162001 > ${g}/functions/rndis.usb0/os_desc/interface.rndis/sub_compatible_id
- 
+
 ln -s ${g}/configs/c.$C ${g}/os_desc
 ln -s functions/rndis.$N configs/c.$C/
 
@@ -39,7 +41,6 @@ echo 1 > functions/hid.$N/subclass
 echo 8 > functions/hid.$N/report_length
 echo -ne \\x05\\x01\\x09\\x06\\xa1\\x01\\x05\\x07\\x19\\xe0\\x29\\xe7\\x15\\x00\\x25\\x01\\x75\\x01\\x95\\x08\\x81\\x02\\x95\\x01\\x75\\x08\\x81\\x03\\x95\\x05\\x75\\x01\\x05\\x08\\x19\\x01\\x29\\x05\\x91\\x02\\x95\\x01\\x75\\x03\\x91\\x03\\x95\\x06\\x75\\x08\\x15\\x00\\x25\\x65\\x05\\x07\\x19\\x00\\x29\\x65\\x81\\x00\\xc0 > functions/hid.$N/report_desc
 
-mkdir -p configs/c.$C
 ln -s functions/hid.$N configs/c.$C/
 ## end hid
 

@@ -1,0 +1,3 @@
+[submodule "gadget-tool"]
+	path = gadget-tool
+	url = https://github.com/kopasiak/gt

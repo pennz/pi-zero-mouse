@@ -1,5 +1,4 @@
 #!/bin/bash -xe
- 
 modprobe libcomposite
 
 C="1"
@@ -20,9 +19,19 @@ echo "Pi Zero Gadget"   > strings/0x409/product
 mkdir -p functions/acm.$N    # serial
 ln -s functions/acm.$N   configs/c.$C/
 
-mkdir -p functions/rndis.$N  # network
-
+g="."
+mkdir -p ${g}/os_desc  # for picky Windows
+echo 1       > ${g}/os_desc/use
+echo 0xcd    > ${g}/os_desc/b_vendor_code
+echo MSFT100 > ${g}/os_desc/qw_sign
+ 
+mkdir -p ${g}/functions/rndis.$N  # network
+echo RNDIS   > ${g}/functions/rndis.usb0/os_desc/interface.rndis/compatible_id
+echo 5162001 > ${g}/functions/rndis.usb0/os_desc/interface.rndis/sub_compatible_id
+ 
+ln -s ${g}/configs/c.$C ${g}/os_desc
 ln -s functions/rndis.$N configs/c.$C/
+
 ## hid mouse, keyboards
 mkdir -p functions/hid.$N
 echo 1 > functions/hid.$N/protocol
@@ -36,5 +45,5 @@ ln -s functions/hid.$N configs/c.$C/
 
 echo 250 > configs/c.$C/MaxPower
 
-udevadm settle -t 5 || :
+udevadm settle -t 5 || : # Watches the udv event queue, and exists if all current events are handled
 ls /sys/class/udc/ > UDC

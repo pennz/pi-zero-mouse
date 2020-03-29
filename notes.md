@@ -24,11 +24,12 @@ https://www.collabora.com/news-and-blog/blog/2019/03/27/modern-usb-gadget-on-lin
         load the libcomposite kernel module,
             create a script that sets up the USB gadgets via ConfigFS,
                 start that script at boot up using a systemd unit file.
+for gt, you need to have corrent conf, otherwise gt even won't print help info.
 
 
 # doc
 https://www.kernel.org/doc/Documentation/ABI/testing/configfs-usb-gadget
-
+[shell reference for take down gadget, but we can always create new ones]https://github.com/nextthingco/Gadget-OS/blob/935eaa0a35a69707f52d4f43e8e279f02cbda793/gadget/package/gadget-init-scripts/files/etc/init.d/S34_usb_gadget
 # tool,lib
 https://github.com/libusbgx/libusbgx
 

@@ -18,9 +18,11 @@ echo "irq5 labs"        > strings/0x409/manufacturer
 echo "Pi Zero Gadget"   > strings/0x409/product
  
 mkdir -p functions/acm.$N    # serial
-mkdir -p functions/rndis.$N  # network
-ln -s functions/rndis.$N configs/c.$C/
 ln -s functions/acm.$N   configs/c.$C/
+
+mkdir -p functions/rndis.$N  # network
+
+ln -s functions/rndis.$N configs/c.$C/
 ## hid mouse, keyboards
 mkdir -p functions/hid.$N
 echo 1 > functions/hid.$N/protocol

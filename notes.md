@@ -26,8 +26,26 @@ https://www.collabora.com/news-and-blog/blog/2019/03/27/modern-usb-gadget-on-lin
                 start that script at boot up using a systemd unit file.
 
 
-# services
+# doc
+https://www.kernel.org/doc/Documentation/ABI/testing/configfs-usb-gadget
 
+# tool,lib
+https://github.com/libusbgx/libusbgx
+
+https://stackoverflow.com/questions/16188335/automake-error-no-proper-invocation-of-am-init-automake-was-found
+
+## auto tools for making
+https://stackoverflow.com/questions/26832264/confused-about-configure-script-and-makefile-in/26832773
+https://www.gnu.org/software/automake/manual/html_node/Error-required-file-ltmain_002esh-not-found.html
+so libtoolize first
+then aclocal
+then automake
+./configure
+make
+
+https://wiki.archlinux.org/index.php/DocBook
+
+# service control
 ## restart
 
 

@@ -32,7 +32,7 @@ class TestOperator(unittest.TestCase):
         o.move_along_bezier_curve(0, -200,rel=True, pause=True)
         self.assertTrue(True)
 
-    def test_drag(self):
+    def _test_drag(self):
         o = self.o
         print("move the mouse to the place for starting drag")
         time.sleep(1)
@@ -79,7 +79,7 @@ class TestOperator(unittest.TestCase):
         o.click(2)
         self.assertTrue(True)
 
-    def _test_moving_rel(self):
+    def test_moving_rel(self):
         o = self.o
         #o._pointer_pos_init()
         #o._to_b_r()

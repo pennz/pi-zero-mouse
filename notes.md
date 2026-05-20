@@ -50,3 +50,11 @@ https://wiki.archlinux.org/index.php/DocBook
 ## restart
 
 
+## hid device details
+https://www.instructables.com/id/Use-pcDuino-as-a-Mouse-When-its-connected-to-a-PC-/
+
+
+## UCD configfs details
+https://www.kernel.org/doc/Documentation/ABI/testing/configfs-usb-gadget
+https://www.kernel.org/doc/Documentation/filesystems/configfs/configfs.txt
+https://www.kernel.org/doc/Documentation/usb/gadget-testing.txt
